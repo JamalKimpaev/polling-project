@@ -7,12 +7,9 @@ from answers.serializers import AnswersListSerializer, AnswersCreateSerializer
 class AnswerCreateView(generics.CreateAPIView):
     serializer_class = AnswersCreateSerializer
 
-    def create(self, request, *args, **kwargs):
-        data = {**request.data, 'user_id': self.kwargs['user_id']}
-        return super().create()
-
     def get_serializer(self, *args, **kwargs):
-        data = {**self.request.data, 'user_id': self.kwargs['user_id']}
+        data = {**kwargs.pop('data', {}), 'user_id': self.kwargs.pop('user_id', None)}
+        return super().get_serializer(*args, data=data, **kwargs)
 
 
 class AnswerListView(generics.ListAPIView):

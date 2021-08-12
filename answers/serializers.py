@@ -1,24 +1,21 @@
-from rest_framework import serializers
 from django.db import transaction
+from rest_framework import serializers
 
 from answers.models import Answer
-from users.models import CustomUser
 from questions.serializers import QuestionSerializer
+from users.models import CustomUser
 
 
 class AnswersListSerializer(serializers.ModelSerializer):
-    questions = QuestionSerializer(many=True)
-
     class Meta:
         model = Answer
         fields = ('question', 'text')
 
 
-class AnswersCreateSerializer(serializers.Serializer):
-
+class AnswersCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Answer
-        fields = '__all__'
+        fields = ('text', 'user', 'question')
 
     @transaction.atomic()
     def create(self, validated_data):
