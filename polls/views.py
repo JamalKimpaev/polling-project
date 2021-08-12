@@ -1,4 +1,3 @@
-from rest_framework.response import Response
 from rest_framework import generics
 from django.utils import timezone
 
@@ -9,7 +8,6 @@ from drf_yasg.utils import swagger_auto_schema
 
 class PollListView(generics.ListAPIView):
     serializer_class = PollSerializer
-
 
     # @swagger_auto_schema(method='get', responses={200: PollSerializer})
     def get_queryset(self):

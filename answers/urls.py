@@ -4,5 +4,6 @@ from answers import views
 
 
 urlpatterns = [
-    path('', views.PollAnswerView.as_view())
+    path('create/<int:user_id>', views.AnswerCreateView.as_view()),
+    path('/<int:user_id>', views.AnswerListView.as_view())
 ]
