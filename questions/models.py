@@ -1,6 +1,6 @@
 from django.db import models
 
-from ..polls.models import Poll
+from polls.models import Poll
 
 
 class Question(models.Model):

@@ -1,8 +1,8 @@
 from django.contrib import admin
-from .models import Question
+from questions.models import Question
 
 
 @admin.register(Question)
 class QuestionAdmin(admin.ModelAdmin):
     list_display = ('text',)
-    readonly_fields = ('pub_date',)
+    # readonly_fields = ('pub_date',)

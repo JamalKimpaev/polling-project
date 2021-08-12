@@ -1,0 +1,39 @@
+version: '3.7'
+services:
+  nginx:
+    build:
+      context: .
+      dockerfile: docker/nginx/Dockerfile
+      target: dev
+      args:
+        - NGINX_HOST=localhost
+        - ALLOW_ACCESS=allow
+    links:
+      - back
+    ports:
+      - 127.0.0.1:8000:80
+    volumes:
+      - back_static:/back/static:ro
+
+  back:
+    build:
+      context: .
+      dockerfile: docker/back/Dockerfile
+    volumes:
+      - back_static:/project/static
+      - .:/project
+    links:
+      - db
+    env_file:
+      - docker/back/dev.env
+
+  db:
+    image: postgres:12
+    volumes:
+      - db:/var/lib/postgresql/data
+    env_file:
+      - docker/back/dev.env
+
+volumes:
+  back_static:
+  db:

@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+import environ
+
+env = environ.Env()
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -23,7 +26,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '5x)np-r&&ag@#ao#$6qo!+(46q#m8y1%f3-o^r3&@vki1ews%u'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env.bool('APP_DEBUG')
 
 ALLOWED_HOSTS = []
 
@@ -39,10 +42,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'rest_framework',
+    'drf_yasg',
     'answers',
     'users',
     'polls',
-    'questions',
+    'questions'
 ]
 
 MIDDLEWARE = [
@@ -81,10 +85,14 @@ WSGI_APPLICATION = 'polling_system.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+DATABASES  = {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": env('POSTGRES_DB', default=None),
+        "USER": env('POSTGRES_USER', default=None),
+        "PASSWORD": env('POSTGRES_PASSWORD', default=None),
+        "HOST": env('POSTGRES_HOST', default=None),
+        "PORT": env('POSTGRES_PORT', default=None),
     }
 }
 
@@ -126,4 +134,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATIC_ROOT = '/project/static'

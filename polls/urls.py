@@ -1,8 +1,8 @@
 from django.urls import path
 
-from . import views
+from polls import views
 
 
 urlpatterns = [
-    path('polls/', views.PollView.as_view())
+    path('', views.PollView.as_view())
 ]
