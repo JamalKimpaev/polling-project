@@ -19,6 +19,7 @@ class AnswersCreateSerializer(serializers.ModelSerializer):
 
     @transaction.atomic()
     def create(self, validated_data):
-        user = CustomUser.objects.get_or_create()
-        validated_data['user'] = user
+        user = CustomUser.objects.get_or_create(id=validated_data['user'].id)
+        print(user)
+        validated_data['user'] = user[0]
         return super().create(validated_data)
