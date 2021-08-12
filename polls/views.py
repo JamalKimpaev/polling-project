@@ -7,7 +7,7 @@ from polls.serializers import PollSerializer
 from drf_yasg.utils import swagger_auto_schema
 
 
-class PollView(generics.ListAPIView):
+class PollListView(generics.ListAPIView):
     serializer_class = PollSerializer
 
 
@@ -15,4 +15,5 @@ class PollView(generics.ListAPIView):
     def get_queryset(self):
         current_time = timezone.now()
         return Poll.objects.filter(start_date__lte=current_time, end_date__gte=current_time)
+
 

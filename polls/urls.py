@@ -4,5 +4,5 @@ from polls import views
 
 
 urlpatterns = [
-    path('', views.PollView.as_view())
+    path('', views.PollListView.as_view())
 ]
